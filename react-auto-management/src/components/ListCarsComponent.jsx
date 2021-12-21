@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import CarService from '../services/CarService';
-import AddCarButton from './AddCarButton';
+import {AddButton} from './Button';
 
 class ListCarsComponent extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            cars: []
+            cars: [],
+            value: ""
         }
     }
 
@@ -16,15 +17,35 @@ class ListCarsComponent extends Component {
         })
     }
 
+    handleInput(e) {
+        
+        this.setState({
+            value: e.target.value
+        })
+    }
+
     render() {
 
         return (
             <div>
                 <h2 className="text-center">Auto data list</h2>
-                <div className="row">
-                    <AddCarButton></AddCarButton>
+                <div className="row no-gutters justify-content-start">
+                    <div className="col">
+                        <AddButton path={'/add-car'}></AddButton>
+                    </div>
+                    
+                    <div>
+                        <form className="form-inline">
+                            <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" 
+                                onInput={(e)=>this.handleInput(e)} value={this.state.value}></input>
+                            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+                    </div>
                 </div>
-                <div className="row">
+                
+                
+
+                <div className="row no-gutters">
                     <table className = "table table-striped table-bordered">
                         <thead>
                             <tr>
@@ -32,7 +53,7 @@ class ListCarsComponent extends Component {
                                 <th>make</th>
                                 <th>model</th>
                                 <th>year</th>
-                                <th>actions</th>
+                                {/* <th>actions</th> */}
                             </tr>
                         </thead>
                         <tbody>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import CarService from '../services/CarService';
-import CancelButton from './CancelButton';
+import {CancelButton} from './Button';
 import { useNavigate } from 'react-router-dom';
 
 class CreateCarComponent extends Component {
@@ -28,8 +28,7 @@ class CreateCarComponent extends Component {
     saveCar = (e) => {
       e.preventDefault();
       let car = { make: this.state.make, model: this.state.model, year: this.state.year }
-      console.log('car =>' + JSON.stringify(car));
-      console.log(this.props.navi)
+
       CarService.createCar(car).then(res => {
         this.props.navigation('/cars')
       })
@@ -41,25 +40,26 @@ class CreateCarComponent extends Component {
         <div>
           <div className="container">
             <div className="row">
-              <div className="card col-md-6 offset-md-3">
-                <h3 className="text-center">Add Car</h3>
+              <div className="card col-md-6 offset-md-3 mt-4">
+                <h3 className="text-center mt-3">Add Car</h3>
                 <div className="card-body">
                   <form>
                     <div className="form-group">
-                      <label>Make:</label>
+                      <label className="mb-0 mt-2">Make:</label>
                       <input placeholder="Make" name="make" className="form-control"
                         value={this.state.make} onChange={this.changeMakeHandler} />
 
-                      <label>Model:</label>
+                      <label className="mb-0 mt-2">Model:</label>
                       <input placeholder="Model" name="model" className="form-control"
                         value={this.state.model} onChange={this.changeModelHandler} />
                       
-                      <label>Year:</label>
+                      <label className="mb-0 mt-2">Year:</label>
                       <input placeholder="Year" name="year" className="form-control"
                         value={this.state.year} onChange={this.changeYearHandler} />
 
-                      <button className="btn btn-success" onClick={this.saveCar}>Save</button>
-                      <CancelButton></CancelButton>
+                      <button className="btn btn-primary btn-sm mt-3" onClick={this.saveCar}>Save</button>
+                      {/* <SaveButton e={e} state={this.state} path={'/cars'}></SaveButton> */}
+                      <CancelButton path={'/cars'}></CancelButton>
                     </div>
                   </form>
                 </div>
