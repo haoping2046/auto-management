@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
+import CarService from '../services/CarService';
 
 export const AddButton = (props) => {
   let navigate = useNavigate()
@@ -21,6 +22,15 @@ export const  CancelButton = (props) => {
   )
 }
 
-
-
-// export {AddButton, CancelButton}
+export const  SaveButton = (props) => {
+  let navigate = useNavigate()
+  function save(e) {
+      e.preventDefault();
+      CarService.createCar(props.data).then(() => {
+        navigate(props.path)
+      })
+  }
+  return (
+    <button className="btn btn-primary btn-sm mt-3" onClick={save}>Save</button>
+  )
+}

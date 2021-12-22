@@ -9,6 +9,10 @@ class CarService {
     createCar(car) {
         return axios.post(CAR_BASE_URL, car);
     }
+
+    findByMake(make) {
+        return axios.get(CAR_BASE_URL + `?make=` + make );
+    }
 }
 
 export default new CarService()

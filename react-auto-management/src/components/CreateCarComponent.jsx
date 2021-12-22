@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import CarService from '../services/CarService';
-import {CancelButton} from './Button';
-import { useNavigate } from 'react-router-dom';
+import {CancelButton, SaveButton} from './Button';
 
 class CreateCarComponent extends Component {
     constructor(props) {
@@ -24,16 +22,6 @@ class CreateCarComponent extends Component {
     changeYearHandler = (event) => {
       this.setState({year: event.target.value});
     }
-    
-    saveCar = (e) => {
-      e.preventDefault();
-      let car = { make: this.state.make, model: this.state.model, year: this.state.year }
-
-      CarService.createCar(car).then(res => {
-        this.props.navigation('/cars')
-      })
-
-    }    
 
     render() {
       return (
@@ -57,8 +45,7 @@ class CreateCarComponent extends Component {
                       <input placeholder="Year" name="year" className="form-control"
                         value={this.state.year} onChange={this.changeYearHandler} />
 
-                      <button className="btn btn-primary btn-sm mt-3" onClick={this.saveCar}>Save</button>
-                      {/* <SaveButton e={e} state={this.state} path={'/cars'}></SaveButton> */}
+                      <SaveButton path={'/cars'} data={{make: this.state.make, model: this.state.model, year: this.state.year}}></SaveButton>
                       <CancelButton path={'/cars'}></CancelButton>
                     </div>
                   </form>
@@ -71,8 +58,4 @@ class CreateCarComponent extends Component {
   }
 }
 
-// useNavigate just can be used in functional component, so I have to wrap and export
-export default function AddCar(props) {
-  const navigation = useNavigate();
-  return <CreateCarComponent {...props} navigation={navigation} />;
-}
+export default CreateCarComponent

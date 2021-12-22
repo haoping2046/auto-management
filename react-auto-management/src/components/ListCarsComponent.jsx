@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import CarService from '../services/CarService';
 import {AddButton} from './Button';
+import {Input, Search}  from './Search';
 
 class ListCarsComponent extends Component {
     constructor(props) {
         super(props)
         this.state = {
             cars: [],
-            value: ""
+            value: ""  
         }
     }
 
@@ -18,10 +19,21 @@ class ListCarsComponent extends Component {
     }
 
     handleInput(e) {
-        
         this.setState({
             value: e.target.value
         })
+    }
+
+    handleClick(e) {
+        e.preventDefault();
+        CarService.findByMake(this.state.value)
+          .then((res) => {
+            this.setState({cars: res.data});
+            console.log(res.data);
+          })
+          .catch(e => {
+            console.log(e);
+          });
     }
 
     render() {
@@ -36,9 +48,8 @@ class ListCarsComponent extends Component {
                     
                     <div>
                         <form className="form-inline">
-                            <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" 
-                                onInput={(e)=>this.handleInput(e)} value={this.state.value}></input>
-                            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                            <Input handleInput={(e)=>this.handleInput(e)} value={this.state.value}></Input>
+                            <Search handleClick={(e)=>this.handleClick(e)}></Search>
                         </form>
                     </div>
                 </div>
@@ -75,7 +86,6 @@ class ListCarsComponent extends Component {
         );
     }
 }
-
 
 
 export default ListCarsComponent;
