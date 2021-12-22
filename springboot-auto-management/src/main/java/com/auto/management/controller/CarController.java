@@ -46,12 +46,12 @@ public class CarController {
                 carRepository.findByMakeContaining(make).forEach(cars::add);
 
             if (cars.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                return new ResponseEntity(HttpStatus.NO_CONTENT);
             }
 
-            return new ResponseEntity<>(cars, HttpStatus.OK);
+            return new ResponseEntity(cars, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
