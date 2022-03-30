@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import CarService from '../services/CarService';
+import { useParams } from "react-router-dom";
 
 export const AddButton = (props) => {
   let navigate = useNavigate()
@@ -24,13 +25,33 @@ export const  CancelButton = (props) => {
 
 export const  SaveButton = (props) => {
   let navigate = useNavigate()
+  const { id } = useParams();
   function save(e) {
       e.preventDefault();
-      CarService.createCar(props.data).then(() => {
-        navigate(props.path)
-      })
+      if (props.operation === 'update') {
+        CarService.updateCar(props.data, id).then(() => {
+          navigate(props.path);
+        })
+      }
+      else {
+        CarService.createCar(props.data).then(() => {
+          navigate(props.path);
+        })
+      }
+      
   }
   return (
     <button className="btn btn-primary btn-sm mt-3" onClick={save}>Save</button>
   )
 }
+
+export const UpdateButton = (props) => {
+  let navigate = useNavigate()
+  function updateCar() {
+      navigate(props.path + props.carID);
+  }
+  return (
+    <button className="btn btn-info" onClick={updateCar}>Update</button>
+  )
+}
+

@@ -13,6 +13,15 @@ class CarService {
     findByMake(make) {
         return axios.get(CAR_BASE_URL + `?make=` + make );
     }
+
+    getCarById(id) {
+        console.log(CAR_BASE_URL + id);
+        return axios.get(CAR_BASE_URL + id);
+    }
+
+    updateCar(car, id) {
+        return axios.put(CAR_BASE_URL + id, car);
+    }
 }
 
 export default new CarService()

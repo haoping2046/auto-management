@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CarService from '../services/CarService';
-import {AddButton} from './Button';
+import {AddButton, UpdateButton} from './Button';
 import {Input, Search}  from './Search';
 
 class ListCarsComponent extends Component {
@@ -64,7 +64,7 @@ class ListCarsComponent extends Component {
                                 <th>make</th>
                                 <th>model</th>
                                 <th>year</th>
-                                {/* <th>actions</th> */}
+                                <th>actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -76,6 +76,10 @@ class ListCarsComponent extends Component {
                                         <td>{car.make}</td>
                                         <td>{car.model}</td>
                                         <td>{car.year}</td>
+                                        <td>
+                                            <UpdateButton path={'/update-car/'} carID={car.id}></UpdateButton>
+                                        </td>
+
                                     </tr>
                                 )
                             }

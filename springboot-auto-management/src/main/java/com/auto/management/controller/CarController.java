@@ -55,5 +55,16 @@ public class CarController {
         }
     }
 
+    @PutMapping("/cars/{id}")
+    public ResponseEntity<Car> updateCar(@PathVariable Long id, @RequestBody Car updateCar) {
+        Car car = carRepository.findById(id)
+                .orElseThrow(()->new ResourceNotFoundException("Car not exist with id: " + id));
+
+        car.setMake(updateCar.getMake());
+        car.setModel(updateCar.getModel());
+        car.setYear(updateCar.getYear());
+
+        return ResponseEntity.ok(carRepository.save(car));
+    }
 
 }
