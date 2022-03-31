@@ -26,8 +26,8 @@ export const  CancelButton = (props) => {
 export const  SaveButton = (props) => {
   let navigate = useNavigate()
   const { id } = useParams();
-  function save(e) {
-      e.preventDefault();
+  function save() {
+      // e.preventDefault();
       if (props.operation === 'update') {
         CarService.updateCar(props.data, id).then(() => {
           navigate(props.path);
@@ -55,3 +55,15 @@ export const UpdateButton = (props) => {
   )
 }
 
+// export const DeleteButton = (props) => {
+//   let navigate = useNavigate()
+//   function deleteCar() {
+//       CarService.deleteCar(props.id).then( res => {
+//         // navigate(props.path);
+//       } )
+      
+//   }
+//   return (
+//     <button className='btn btn-danger'style={{marginLeft: "10px"}} onClick={deleteCar}>Delete</button>
+//   )
+// }

@@ -22,6 +22,10 @@ class CarService {
     updateCar(car, id) {
         return axios.put(CAR_BASE_URL + id, car);
     }
+
+    deleteCar(id) {
+        return axios.delete(CAR_BASE_URL + id);
+    }
 }
 
 export default new CarService()

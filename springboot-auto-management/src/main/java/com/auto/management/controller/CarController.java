@@ -1,7 +1,9 @@
 package com.auto.management.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.auto.management.exception.ResourceNotFoundException;
 import com.auto.management.model.Car;
@@ -65,6 +67,17 @@ public class CarController {
         car.setYear(updateCar.getYear());
 
         return ResponseEntity.ok(carRepository.save(car));
+    }
+
+    @DeleteMapping("/cars/{id}")
+    public ResponseEntity<Map<String, Boolean>> deleteCar(@PathVariable Long id) {
+        Car car = carRepository.findById(id)
+                .orElseThrow(()->new ResourceNotFoundException("Car not exist with id: " + id));
+
+        carRepository.delete(car);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return ResponseEntity.ok(response);
     }
 
 }

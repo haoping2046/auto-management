@@ -36,6 +36,15 @@ class ListCarsComponent extends Component {
           });
     }
 
+    deleteCar(id) {
+        CarService.deleteCar(id)
+          .then( res => {
+            this.setState({cars: this.state.cars.filter( (car) => car.id !== id )})
+           
+        });
+
+    }
+
     render() {
 
         return (
@@ -78,6 +87,9 @@ class ListCarsComponent extends Component {
                                         <td>{car.year}</td>
                                         <td>
                                             <UpdateButton path={'/update-car/'} carID={car.id}></UpdateButton>
+                                            <button className='btn btn-danger'style={{marginLeft: "10px"}} onClick={ () => this.deleteCar(car.id)}>Delete</button>
+                                            {/* <DeleteButton path={'/delete-car/'} carID={car.id}></DeleteButton> */}
+                                            
                                         </td>
 
                                     </tr>
